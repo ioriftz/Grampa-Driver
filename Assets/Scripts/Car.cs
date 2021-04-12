@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Car : MonoBehaviour
 {
@@ -17,11 +18,18 @@ public class Car : MonoBehaviour
 
     public float currentDrag;
 
+    public Transform frontWheelL, frontWheelR;
+    public float maxWheelRotation;
+
+    public CinemachineVirtualCamera cm;
+    private CinemachineTransposer transposer;
+
     // Start is called before the first frame update
     void Start()
     {
         rb.transform.parent = null;
         currentDrag = rb.drag;
+        transposer = cm.GetCinemachineComponent<CinemachineTransposer>();
     }
 
     // Update is called once per frame
@@ -29,8 +37,13 @@ public class Car : MonoBehaviour
     {
         if(Input.GetAxis("Vertical") > 0){
             speedInput = Input.GetAxis("Vertical") * forward * 1000f;
+            transposer.m_FollowOffset.z = -10;
         } else if(Input.GetAxis("Vertical") < 0){
             speedInput = Input.GetAxis("Vertical") * reverse * 1000f;
+        }
+
+        if(transform.InverseTransformDirection(rb.velocity).z < -6){
+            transposer.m_FollowOffset.z = 10;
         }
 
         turnInput = Input.GetAxis("Horizontal");
@@ -38,6 +51,9 @@ public class Car : MonoBehaviour
         if(grounded){
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, turnInput * turnForce * Time.deltaTime * Input.GetAxis("Vertical"), 0));
         }
+
+        frontWheelL.localRotation = Quaternion.Euler(frontWheelL.localRotation.eulerAngles.x, (turnInput * maxWheelRotation) - 180, frontWheelL.localRotation.eulerAngles.z);
+        frontWheelR.localRotation = Quaternion.Euler(frontWheelR.localRotation.eulerAngles.x, (turnInput * maxWheelRotation), frontWheelR.localRotation.eulerAngles.z);
 
         transform.position = rb.transform.position;
     }
@@ -47,6 +63,8 @@ public class Car : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(groundedRayPoint.position, -transform.up, out hit, groundRayLenght, ground)){
             grounded = true;
+
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
 
         if(grounded){

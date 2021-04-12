@@ -182,7 +182,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39731164}
-  m_LocalRotation: {x: 0.18910751, y: -0.000000008447955, z: 0.0000000016269276, w: 0.9819564}
+  m_LocalRotation: {x: 0.18910751, y: -0.0000000084479606, z: 0.0000000016269286, w: 0.9819564}
   m_LocalPosition: {x: 0, y: 4.515, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -193,6 +193,11 @@ Transform:
 --- !u!4 &97088603 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 05e9500a99e6dee688f5ba2cc4faac65, type: 3}
+  m_PrefabInstance: {fileID: 892411283}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &339057611 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4394063537170073049, guid: 05e9500a99e6dee688f5ba2cc4faac65, type: 3}
   m_PrefabInstance: {fileID: 892411283}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &488495556
@@ -519,6 +524,10 @@ MonoBehaviour:
   groundRayLenght: 0.5
   groundedRayPoint: {fileID: 1588811043}
   currentDrag: 0
+  frontWheelL: {fileID: 339057611}
+  frontWheelR: {fileID: 1275231872}
+  maxWheelRotation: 45
+  cm: {fileID: 39731165}
 --- !u!4 &832390194
 Transform:
   m_ObjectHideFlags: 0
@@ -972,7 +981,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.18910751, y: -0.000000008447955, z: 0.0000000016269276, w: 0.9819564}
+  m_LocalRotation: {x: 0.18910751, y: -0.0000000084479606, z: 0.0000000016269286, w: 0.9819564}
   m_LocalPosition: {x: 0, y: 4.515, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1013,6 +1022,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &1275231872 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6204404728300462442, guid: 05e9500a99e6dee688f5ba2cc4faac65, type: 3}
+  m_PrefabInstance: {fileID: 892411283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1588811042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,7 +1071,7 @@ GameObject:
   - component: {fileID: 1589938055}
   - component: {fileID: 1589938054}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: collisionMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1099,7 +1113,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589938053}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
